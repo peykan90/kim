@@ -1,0 +1,376 @@
+
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>نامه‌رمز | پیام‌رسان کدگذاری‌شده</title>
+
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      padding: 20px;
+      min-height: 100vh;
+      font-family: Tahoma, Arial, sans-serif;
+      color: #edf7ff;
+      background: linear-gradient(135deg, #061321, #102d49, #071827);
+    }
+
+    .container {
+      max-width: 800px;
+      margin: 30px auto;
+    }
+
+    header {
+      text-align: center;
+      margin-bottom: 25px;
+    }
+
+    h1 {
+      color: #54e2dc;
+      font-size: 32px;
+    }
+
+    header p {
+      color: #b7c9d9;
+      line-height: 1.9;
+    }
+
+    .card {
+      padding: 22px;
+      margin-bottom: 18px;
+      border: 1px solid #28506d;
+      border-radius: 18px;
+      background: rgba(13, 35, 57, 0.96);
+      box-shadow: 0 10px 35px #0003;
+    }
+
+    label {
+      display: block;
+      margin: 14px 0 8px;
+      font-weight: bold;
+    }
+
+    input, textarea {
+      width: 100%;
+      padding: 13px;
+      border: 1px solid #315773;
+      border-radius: 12px;
+      background: #071827;
+      color: #fff;
+      font: 16px/1.9 Tahoma, Arial, sans-serif;
+      outline: none;
+    }
+
+    input:focus, textarea:focus {
+      border-color: #54e2dc;
+    }
+
+    textarea {
+      min-height: 170px;
+      resize: vertical;
+      white-space: pre-wrap;
+      overflow-wrap: anywhere;
+    }
+
+    .buttons {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 13px;
+    }
+
+    button {
+      flex: 1;
+      min-width: 120px;
+      padding: 13px;
+      border: none;
+      border-radius: 10px;
+      background: #54e2dc;
+      color: #06202b;
+      font-size: 15px;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    button.secondary {
+      background: #193b59;
+      color: #edf7ff;
+      border: 1px solid #315773;
+    }
+
+    button:hover {
+      filter: brightness(1.12);
+    }
+
+    .notice {
+      color: #b7c9d9;
+      font-size: 13px;
+      line-height: 1.9;
+    }
+
+    #status {
+      margin-top: 14px;
+      color: #54e2dc;
+      line-height: 1.8;
+      overflow-wrap: anywhere;
+    }
+
+    footer {
+      text-align: center;
+      color: #91a9bd;
+      font-size: 12px;
+      padding: 12px;
+    }
+
+    @media (max-width: 500px) {
+      body {
+        padding: 12px;
+      }
+
+      .container {
+        margin-top: 12px;
+      }
+
+      .card {
+        padding: 15px;
+      }
+
+      h1 {
+        font-size: 26px;
+      }
+
+      button {
+        min-width: 100%;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <main class="container">
+
+    <header>
+      <h1>✉️ نامه‌رمز</h1>
+      <p>
+        نامه‌ات را بنویس، کدگذاری کن و برای دوستت بفرست.
+        اینترها و پاراگراف‌ها حفظ می‌شوند!
+      </p>
+    </header>
+
+    <section class="card">
+
+      <label for="secretKey">🔑 کلید مشترک</label>
+      <input
+        id="secretKey"
+        type="password"
+        placeholder="یک کلید دلخواه وارد کن"
+        autocomplete="off"
+      >
+
+      <p class="notice">
+        تو و دوستت باید دقیقاً یک کلید وارد کنید.
+        برای نمایش یا مخفی‌کردن کلید از دکمهٔ زیر استفاده کن.
+      </p>
+
+      <div class="buttons">
+        <button class="secondary" id="toggleKey">
+          نمایش کلید
+        </button>
+      </div>
+
+      <label for="message">📝 متن نامه</label>
+      <textarea
+        id="message"
+        placeholder="سلام رفیق!
+امروز چه خبر؟
+اینجا می‌تونی چند خط بنویسی..."
+      ></textarea>
+
+      <div class="buttons">
+        <button id="encodeBtn">🔒 کدگذاری</button>
+        <button id="decodeBtn" class="secondary">🔓 رمزگشایی</button>
+      </div>
+
+      <label for="result">📨 نتیجه</label>
+      <textarea
+        id="result"
+        placeholder="متن کدشده یا نتیجهٔ رمزگشایی اینجا نمایش داده می‌شود..."
+        spellcheck="false"
+      ></textarea>
+
+      <div class="buttons">
+        <button id="copyBtn">📋 کپی نتیجه</button>
+        <button id="transferBtn" class="secondary">
+          انتقال نتیجه به متن نامه
+        </button>
+        <button id="clearBtn" class="secondary">پاک‌کردن</button>
+      </div>
+
+      <div id="status" role="status" aria-live="polite"></div>
+
+    </section>
+
+    <section class="card">
+      <h3>📖 چطور استفاده کنیم؟</h3>
+      <p class="notice">
+        ۱. یک کلید مشترک انتخاب کنید.<br>
+        ۲. نامه را در کادر بالا بنویسید. با Enter به خط بعد بروید.<br>
+        ۳. روی کدگذاری بزنید و نتیجه را کپی کنید.<br>
+        ۴. دوستت متن را در کادر نتیجه قرار می‌دهد، همان کلید را وارد می‌کند
+        و روی رمزگشایی می‌زند.
+      </p>
+    </section>
+
+    <footer>
+      نامه‌رمز | طراحی‌شده برای پیام‌های فارسی
+    </footer>
+
+  </main>
+
+  <script>
+    const message = document.getElementById("message");
+    const result = document.getElementById("result");
+    const secretKey = document.getElementById("secretKey");
+    const status = document.getElementById("status");
+
+    // تبدیل متن به بایت‌های UTF-8؛ پشتیبانی از فارسی و ایموجی
+    const encoder = new TextEncoder();
+    const decoder = new TextDecoder("utf-8", { fatal: true });
+
+    function getKey() {
+      const value = secretKey.value;
+
+      if (!value.trim()) {
+        throw new Error("اول یک کلید مشترک وارد کن.");
+      }
+
+      return encoder.encode(value);
+    }
+
+    // تبدیل بایت‌ها به Base64
+    function toBase64(bytes) {
+      let binary = "";
+
+      for (let i = 0; i < bytes.length; i += 8192) {
+        binary += String.fromCharCode(
+          ...bytes.subarray(i, Math.min(i + 8192, bytes.length))
+        );
+      }
+
+      return btoa(binary);
+    }
+
+    // تبدیل Base64 به بایت
+    function fromBase64(text) {
+      const binary = atob(text);
+      const bytes = new Uint8Array(binary.length);
+
+      for (let i = 0; i < binary.length; i++) {
+        bytes[i] = binary.charCodeAt(i);
+      }
+
+      return bytes;
+    }
+
+    /*
+      این روش فقط یک کدگذاری ساده و قابل برگشت است،
+      نه رمزنگاری امن برای اطلاعات حساس.
+      اینترها و فاصله‌ها بدون تغییر حفظ می‌شوند.
+    */
+    function transform(bytes, key) {
+      const output = new Uint8Array(bytes.length);
+
+      for (let i = 0; i < bytes.length; i++) {
+        const mask = key[i % key.length] ^ ((i * 31 + 17) & 255);
+        output[i] = bytes[i] ^ mask;
+      }
+
+      return output;
+    }
+
+    // کدگذاری نامه
+    document.getElementById("encodeBtn").addEventListener("click", () => {
+      try {
+        const key = getKey();
+        const bytes = encoder.encode(message.value);
+        const coded = transform(bytes, key);
+
+        result.value = "LETTERCODE1:" + toBase64(coded);
+        status.textContent =
+          "✅ نامه کدگذاری شد. حالا می‌تونی نتیجه را کپی کنی.";
+      } catch (error) {
+        status.textContent = "⚠️ " + error.message;
+      }
+    });
+
+    // رمزگشایی نامه
+    document.getElementById("decodeBtn").addEventListener("click", () => {
+      try {
+        const key = getKey();
+        const codedText = result.value.trim();
+        const prefix = "LETTERCODE1:";
+
+        if (!codedText.startsWith(prefix)) {
+          throw new Error("متن کدشده با قالب نامه‌رمز مطابقت ندارد.");
+        }
+
+        const codedBytes = fromBase64(codedText.slice(prefix.length));
+        const originalBytes = transform(codedBytes, key);
+        const originalText = decoder.decode(originalBytes);
+
+        message.value = originalText;
+
+        status.textContent =
+          "✅ پیام باز شد؛ اینترها و پاراگراف‌ها حفظ شده‌اند.";
+      } catch (error) {
+        status.textContent =
+          "⚠️ رمزگشایی ناموفق بود. کلید و متن را بررسی کن.";
+      }
+    });
+
+    // کپی نتیجه
+    document.getElementById("copyBtn").addEventListener("click", async () => {
+      try {
+        await navigator.clipboard.writeText(result.value);
+        status.textContent = "✅ نتیجه کپی شد.";
+      } catch (error) {
+        result.focus();
+        result.select();
+
+        const copied = document.execCommand("copy");
+
+        status.textContent = copied
+          ? "✅ نتیجه کپی شد."
+          : "متن را انتخاب کن و به‌صورت دستی کپی کن.";
+      }
+    });
+
+    // انتقال نتیجه به کادر نامه
+    document.getElementById("transferBtn").addEventListener("click", () => {
+      message.value = result.value;
+      status.textContent = "نتیجه به کادر متن نامه منتقل شد.";
+    });
+
+    // پاک کردن متن‌ها
+    document.getElementById("clearBtn").addEventListener("click", () => {
+      message.value = "";
+      result.value = "";
+      status.textContent = "کادرهای پیام پاک شدند.";
+    });
+
+    // نمایش یا مخفی کردن کلید
+    document.getElementById("toggleKey").addEventListener("click", () => {
+      const hidden = secretKey.type === "password";
+
+      secretKey.type = hidden ? "text" : "password";
+      document.getElementById("toggleKey").textContent =
+        hidden ? "مخفی‌کردن کلید" : "نمایش کلید";
+    });
+  </script>
+</body>
+</html>
