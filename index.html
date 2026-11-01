@@ -1,0 +1,654 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#07111f">
+  <title>نامه‌رمز | پیام‌رسان امن</title>
+  <style>
+    :root {
+      --bg: #050505;
+      --card: #101010;
+      --green: #00ff55;
+      --red: #ff3030;
+      --text: #eeeeee;
+      --muted: #999999;
+      --border: rgba(0, 255, 85, .3);
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      padding: 30px 18px;
+      color: var(--text);
+      font-family: Tahoma, Arial, sans-serif;
+      text-align: center;
+      background:
+        radial-gradient(circle at 10% 10%, rgba(255, 0, 0, .12), transparent 30rem),
+        radial-gradient(circle at 90% 90%, rgba(0, 255, 85, .10), transparent 30rem),
+        #050505;
+    }
+
+    /* Background grid */
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      z-index: 0;
+      pointer-events: none;
+      background-image:
+        linear-gradient(rgba(0, 255, 85, .035) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(0, 255, 85, .035) 1px, transparent 1px);
+      background-size: 35px 35px;
+    }
+
+    /* Main container */
+    .container {
+      width: 100%;
+      max-width: 850px;
+      margin: 15px auto;
+      position: relative;
+      z-index: 1;
+    }
+
+    /* Header */
+    header {
+      text-align: center;
+      margin-bottom: 30px;
+      padding: 20px;
+    }
+
+    .eyebrow {
+      display: inline-block;
+      padding: 9px 20px;
+      color: var(--green);
+      border: 1px solid var(--green);
+      border-radius: 30px;
+      background: rgba(0, 255, 85, .06);
+      font-size: 11px;
+      letter-spacing: 2px;
+      box-shadow: 0 0 15px rgba(0, 255, 85, .12);
+    }
+
+    h1 {
+      color: var(--green);
+      font-size: clamp(32px, 6vw, 48px);
+      margin: 22px 0 12px;
+      text-shadow: 0 0 15px rgba(0, 255, 85, .45);
+    }
+
+    header p {
+      color: var(--muted);
+      font-size: 14px;
+      line-height: 2.2;
+    }
+
+    /* Main card */
+    .card {
+      position: relative;
+      padding: 30px;
+      margin-bottom: 25px;
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      background: linear-gradient(145deg, #151515, #090909);
+      box-shadow:
+        0 0 25px rgba(0, 255, 85, .07),
+        0 15px 45px rgba(0, 0, 0, .6);
+    }
+
+    /* Section title */
+    .section-title {
+      color: var(--green);
+      text-align: center;
+      font-size: 19px;
+      margin: 0 0 25px;
+      text-shadow: 0 0 10px rgba(0, 255, 85, .3);
+    }
+
+    /* Labels */
+    label {
+      display: block;
+      text-align: center;
+      margin: 22px 0 10px;
+      color: var(--green);
+      font-size: 14px;
+      font-weight: bold;
+    }
+
+    /* Inputs and textareas */
+    input,
+    textarea {
+      display: block;
+      width: 100%;
+      padding: 15px;
+      margin: 10px auto;
+      color: var(--text);
+      background: #080808;
+      border: 1px solid #383838;
+      border-radius: 9px;
+      outline: none;
+      font-family: Tahoma, Arial, sans-serif;
+      font-size: 14px;
+      line-height: 2;
+      text-align: center;
+      transition: .25s;
+    }
+
+    input:focus,
+    textarea:focus {
+      border-color: var(--green);
+      box-shadow: 0 0 14px rgba(0, 255, 85, .18);
+    }
+
+    input::placeholder,
+    textarea::placeholder {
+      color: #666;
+    }
+
+    textarea {
+      min-height: 175px;
+      resize: vertical;
+      white-space: pre-wrap;
+      overflow-wrap: anywhere;
+    }
+
+    /* Encrypted result */
+    #result {
+      direction: ltr;
+      text-align: center;
+      font-family: Consolas, "Courier New", monospace;
+      font-size: 13px;
+      color: var(--green);
+      letter-spacing: .3px;
+    }
+
+    /* Buttons container */
+    .buttons {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-top: 18px;
+    }
+
+    /* Main buttons */
+    button {
+      flex: 1;
+      min-width: 145px;
+      padding: 14px 18px;
+      border: 1px solid var(--green);
+      border-radius: 8px;
+      color: #000;
+      background: linear-gradient(135deg, #00ff55, #00b83d);
+      font-size: 13px;
+      font-weight: bold;
+      cursor: pointer;
+      transition: .25s;
+    }
+
+    button:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 0 20px rgba(0, 255, 85, .35);
+      filter: brightness(1.1);
+    }
+
+    button:active {
+      transform: scale(.97);
+    }
+
+    /* Secondary buttons */
+    button.secondary {
+      color: var(--green);
+      border-color: var(--green);
+      background: #101810;
+    }
+
+    button.secondary:hover {
+      background: #142a19;
+      box-shadow: 0 0 18px rgba(0, 255, 85, .2);
+    }
+
+    /* Danger buttons */
+    button.danger {
+      color: white;
+      border-color: var(--red);
+      background: linear-gradient(135deg, #a00000, #e00000);
+    }
+
+    button.danger:hover {
+      box-shadow: 0 0 20px rgba(255, 0, 0, .3);
+    }
+
+    /* Notice */
+    .notice {
+      color: var(--muted);
+      text-align: center;
+      font-size: 12px;
+      line-height: 2;
+    }
+
+    /* Statistics */
+    .stats {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 13px;
+      margin-top: 25px;
+    }
+
+    .stat {
+      padding: 18px 12px;
+      background: #090909;
+      border: 1px solid #292929;
+      border-top: 2px solid var(--green);
+      border-radius: 9px;
+      text-align: center;
+      transition: .25s;
+    }
+
+    .stat:hover {
+      border-color: var(--green);
+      box-shadow: 0 0 15px rgba(0, 255, 85, .1);
+    }
+
+    .stat span {
+      display: block;
+      color: var(--muted);
+      font-size: 11px;
+      margin-bottom: 12px;
+    }
+
+    .stat strong {
+      display: block;
+      color: var(--green);
+      font-size: 14px;
+      overflow-wrap: anywhere;
+    }
+
+    /* Status */
+    #status {
+      min-height: 35px;
+      margin-top: 22px;
+      padding: 12px;
+      color: var(--green);
+      text-align: center;
+      line-height: 2;
+      overflow-wrap: anywhere;
+      background: rgba(0, 255, 85, .06);
+      border: 1px solid rgba(0, 255, 85, .2);
+      border-radius: 8px;
+    }
+
+    #status.error {
+      color: var(--red);
+      background: rgba(255, 0, 0, .06);
+      border-color: rgba(255, 0, 0, .3);
+    }
+
+    /* Selection */
+    ::selection {
+      color: black;
+      background: var(--green);
+    }
+
+    /* Scrollbar */
+    ::-webkit-scrollbar {
+      width: 8px;
+    }
+
+    ::-webkit-scrollbar-track {
+      background: #050505;
+    }
+
+    ::-webkit-scrollbar-thumb {
+      background: #08752b;
+      border-radius: 10px;
+    }
+
+    ::-webkit-scrollbar-thumb:hover {
+      background: var(--red);
+    }
+
+    /* Footer */
+    footer {
+      display: none;
+    }
+
+    /* Mobile */
+    @media (max-width: 600px) {
+      body {
+        padding: 12px;
+      }
+
+      .container {
+        margin-top: 5px;
+      }
+
+      .card {
+        padding: 20px 14px;
+      }
+
+      .stats {
+        grid-template-columns: 1fr;
+      }
+
+      button {
+        min-width: 100%;
+      }
+
+      textarea {
+        min-height: 145px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <main class="container">
+    <header>
+      <span class="eyebrow">PRIVATE MESSAGE • VERSION 2</span>
+      <h1>✉️ نامه‌رمز</h1>
+      <p>پیامت را بنویس، فشرده و رمزنگاری کن و برای دوستت بفرست.<br>فاصله‌ها، خط‌های جدید و ایموجی‌ها در متن اصلی حفظ
+        می‌شوند.</p>
+    </header>
+
+    <section class="card">
+      <h2 class="section-title">🔑 کلید مشترک</h2>
+      <label for="secretKey">رمز عبور مشترک</label>
+      <input id="secretKey" type="password" placeholder="یک عبارت طولانی و غیرقابل حدس وارد کن" autocomplete="off">
+      <p class="notice">هر دو نفر باید دقیقاً یک رمز عبور وارد کنند. برای امنیت بهتر از یک عبارت طولانی استفاده کن.</p>
+      <div class="buttons">
+        <button class="secondary" id="toggleKey" type="button">نمایش رمز عبور</button>
+      </div>
+
+      <label for="message">📝 متن نامه</label>
+      <textarea id="message" placeholder="سلام رفیق!
+امروز چه خبر؟
+اینجا می‌تونی چند خط بنویسی..."></textarea>
+
+      <div class="buttons">
+        <button id="encodeBtn" type="button">🔒 فشرده‌سازی و رمزنگاری</button>
+        <button id="decodeBtn" class="secondary" type="button">🔓 رمزگشایی</button>
+      </div>
+
+      <label for="result">📨 متن رمزنگاری‌شده / نتیجه</label>
+      <textarea id="result" placeholder="خروجی رمزنگاری یا متن دریافتی را اینجا قرار بده..."
+        spellcheck="false"></textarea>
+
+      <div class="buttons">
+        <button id="copyBtn" type="button">📋 کپی نتیجه</button>
+        <button id="transferBtn" class="secondary" type="button">انتقال نتیجه به متن نامه</button>
+        <button id="clearBtn" class="danger" type="button">پاک‌کردن</button>
+      </div>
+
+      <div class="stats" aria-live="polite">
+        <div class="stat"><span>حجم متن اصلی (UTF-8)</span><strong id="originalSize">—</strong></div>
+        <div class="stat"><span>حجم خروجی نهایی</span><strong id="outputSize">—</strong></div>
+        <div class="stat"><span>وضعیت فشرده‌سازی</span><strong id="compressionState">—</strong></div>
+      </div>
+      <div id="status" role="status" aria-live="polite"></div>
+    </section>
+  </main>
+
+  <script>
+    "use strict";
+
+    const message = document.getElementById("message");
+    const result = document.getElementById("result");
+    const secretKey = document.getElementById("secretKey");
+    const statusBox = document.getElementById("status");
+    const originalSizeBox = document.getElementById("originalSize");
+    const outputSizeBox = document.getElementById("outputSize");
+    const compressionStateBox = document.getElementById("compressionState");
+
+    const encoder = new TextEncoder();
+    const decoder = new TextDecoder("utf-8", {fatal: true});
+
+    const PREFIX = "LETTERCODE2:";
+    const SALT_LENGTH = 16;
+    const IV_LENGTH = 12;
+    const PBKDF2_ITERATIONS = 250000;
+
+    function setStatus(text, isError = false) {
+      statusBox.textContent = text;
+      statusBox.classList.toggle("error", isError);
+    }
+
+    function formatBytes(bytes) {
+      if (bytes < 1024) return `${bytes} بایت`;
+      return `${(bytes / 1024).toFixed(2)} کیلوبایت`;
+    }
+
+    function getPassword() {
+      const password = secretKey.value;
+      if (!password.trim()) throw new Error("ابتدا رمز عبور مشترک را وارد کن.");
+      if (password.length < 3) throw new Error("برای امنیت بهتر، رمز عبور حداقل ۸ نویسه داشته باشد.");
+      return password;
+    }
+
+    function randomBytes(length) {
+      return crypto.getRandomValues(new Uint8Array(length));
+    }
+
+    async function deriveAesKey(password, salt) {
+      const passwordKey = await crypto.subtle.importKey(
+        "raw",
+        encoder.encode(password),
+        "PBKDF2",
+        false,
+        ["deriveKey"]
+      );
+
+      return crypto.subtle.deriveKey(
+        {
+          name: "PBKDF2",
+          salt,
+          iterations: PBKDF2_ITERATIONS,
+          hash: "SHA-256"
+        },
+        passwordKey,
+        {name: "AES-GCM", length: 256},
+        false,
+        ["encrypt", "decrypt"]
+      );
+    }
+
+    async function gzipCompress(bytes) {
+      if (!("CompressionStream" in window)) return null;
+      const stream = new Blob([bytes]).stream().pipeThrough(new CompressionStream("gzip"));
+      return new Uint8Array(await new Response(stream).arrayBuffer());
+    }
+
+    async function gzipDecompress(bytes) {
+      if (!("DecompressionStream" in window)) {
+        throw new Error("مرورگر این دستگاه از بازکردن داده GZIP پشتیبانی نمی‌کند.");
+      }
+      const stream = new Blob([bytes]).stream().pipeThrough(new DecompressionStream("gzip"));
+      return new Uint8Array(await new Response(stream).arrayBuffer());
+    }
+
+    function toBase64(bytes) {
+      let binary = "";
+      const chunkSize = 0x8000;
+      for (let i = 0; i < bytes.length; i += chunkSize) {
+        binary += String.fromCharCode(...bytes.subarray(i, i + chunkSize));
+      }
+      return btoa(binary);
+    }
+
+    function fromBase64(text) {
+      const clean = text.replace(/\s/g, "");
+      const binary = atob(clean);
+      const bytes = new Uint8Array(binary.length);
+      for (let i = 0; i < binary.length; i++) {
+        bytes[i] = binary.charCodeAt(i);
+      }
+      return bytes;
+    }
+
+    function joinBytes(...arrays) {
+      const totalLength = arrays.reduce((sum, arr) => sum + arr.length, 0);
+      const joined = new Uint8Array(totalLength);
+      let offset = 0;
+      for (const arr of arrays) {
+        joined.set(arr, offset);
+        offset += arr.length;
+      }
+      return joined;
+    }
+
+    // قالب خروجی:
+    // یک بایت پرچم فشرده‌سازی + salt شانزده‌بایتی + IV دوازده‌بایتی + متن رمز‌شده
+    async function encryptMessage() {
+      try {
+        if (!window.crypto || !crypto.subtle) {
+          throw new Error("برای استفاده از رمزنگاری امن، فایل را در یک مرورگر به‌روز و محیط امن (HTTPS یا localhost) باز کن.");
+        }
+
+        const password = getPassword();
+        const originalBytes = encoder.encode(message.value);
+
+        let payload = originalBytes;
+        let compressed = false;
+
+        try {
+          const compressedBytes = await gzipCompress(originalBytes);
+          if (compressedBytes && compressedBytes.length < originalBytes.length) {
+            payload = compressedBytes;
+            compressed = true;
+          }
+        } catch (_) {
+          // اگر فشرده‌سازی در مرورگر در دسترس نبود، متن اصلی استفاده می‌شود.
+        }
+
+        const salt = randomBytes(SALT_LENGTH);
+        const iv = randomBytes(IV_LENGTH);
+        const key = await deriveAesKey(password, salt);
+
+        const encryptedBuffer = await crypto.subtle.encrypt(
+          {name: "AES-GCM", iv, tagLength: 128},
+          key,
+          payload
+        );
+
+        const flag = new Uint8Array([compressed ? 1 : 0]);
+        const packageBytes = joinBytes(flag, salt, iv, new Uint8Array(encryptedBuffer));
+
+        result.value = PREFIX + toBase64(packageBytes);
+
+        const outputBytes = encoder.encode(result.value).length;
+        originalSizeBox.textContent = formatBytes(originalBytes.length);
+        outputSizeBox.textContent = formatBytes(outputBytes);
+        compressionStateBox.textContent = compressed ? "GZIP اعمال شد" : "بدون فشرده‌سازی";
+        const difference = outputBytes - originalBytes.length;
+        setStatus(
+          `✅ پیام رمزنگاری شد. ${difference <= 0
+            ? `حجم خروجی ${formatBytes(Math.abs(difference))} کمتر از متن اولیه است.`
+            : `خروجی نهایی به‌دلیل سربار رمزنگاری و Base64، ${formatBytes(difference)} بیشتر از متن اولیه است.`}`
+        );
+      } catch (error) {
+        setStatus("⚠️ " + (error.message || "خطایی هنگام رمزنگاری رخ داد."), true);
+      }
+    }
+
+    async function decryptMessage() {
+      try {
+        if (!window.crypto || !crypto.subtle) {
+          throw new Error("مرورگر یا محیط فعلی از Web Crypto پشتیبانی نمی‌کند.");
+        }
+
+        const password = getPassword();
+        const codedText = result.value.trim();
+
+        if (!codedText.startsWith(PREFIX)) {
+          throw new Error("این پیام با قالب LETTERCODE2 سازگار نیست.");
+        }
+
+        const packageBytes = fromBase64(codedText.slice(PREFIX.length));
+        const minimumLength = 1 + SALT_LENGTH + IV_LENGTH + 16;
+
+        if (packageBytes.length < minimumLength) {
+          throw new Error("داده رمزنگاری‌شده ناقص یا خراب است.");
+        }
+
+        const compressed = packageBytes[0] === 1;
+        if (packageBytes[0] !== 0 && packageBytes[0] !== 1) {
+          throw new Error("پرچم فشرده‌سازی معتبر نیست.");
+        }
+
+        const saltStart = 1;
+        const ivStart = saltStart + SALT_LENGTH;
+        const encryptedStart = ivStart + IV_LENGTH;
+
+        const salt = packageBytes.slice(saltStart, ivStart);
+        const iv = packageBytes.slice(ivStart, encryptedStart);
+        const encryptedBytes = packageBytes.slice(encryptedStart);
+
+        const key = await deriveAesKey(password, salt);
+        const decryptedBuffer = await crypto.subtle.decrypt(
+          {name: "AES-GCM", iv, tagLength: 128},
+          key,
+          encryptedBytes
+        );
+
+        let plainBytes = new Uint8Array(decryptedBuffer);
+        if (compressed) plainBytes = await gzipDecompress(plainBytes);
+
+        const originalText = decoder.decode(plainBytes);
+        message.value = originalText;
+
+        originalSizeBox.textContent = formatBytes(plainBytes.length);
+        outputSizeBox.textContent = formatBytes(encoder.encode(codedText).length);
+        compressionStateBox.textContent = compressed ? "پیام GZIP بود" : "پیام فشرده نشده بود";
+        setStatus("✅ رمزگشایی موفق بود؛ متن، فاصله‌ها، خط‌های جدید و ایموجی‌ها بدون تغییر بازیابی شدند.");
+      } catch (error) {
+        const messageText = error.name === "OperationError"
+          ? "رمزگشایی ناموفق بود؛ رمز عبور اشتباه است یا پیام دستکاری/خراب شده است."
+          : (error.message || "خطایی هنگام رمزگشایی رخ داد.");
+        setStatus("⚠️ " + messageText, true);
+      }
+    }
+
+    document.getElementById("encodeBtn").addEventListener("click", encryptMessage);
+    document.getElementById("decodeBtn").addEventListener("click", decryptMessage);
+
+    document.getElementById("copyBtn").addEventListener("click", async () => {
+      try {
+        await navigator.clipboard.writeText(result.value);
+        setStatus("✅ نتیجه کپی شد.");
+      } catch (_) {
+        result.focus();
+        result.select();
+        const copied = document.execCommand("copy");
+        setStatus(copied ? "✅ نتیجه کپی شد." : "متن را انتخاب کن و دستی کپی کن.", !copied);
+      }
+    });
+
+    document.getElementById("transferBtn").addEventListener("click", () => {
+      message.value = result.value;
+      setStatus("نتیجه به کادر متن نامه منتقل شد.");
+    });
+
+    document.getElementById("clearBtn").addEventListener("click", () => {
+      message.value = "";
+      result.value = "";
+      originalSizeBox.textContent = "—";
+      outputSizeBox.textContent = "—";
+      compressionStateBox.textContent = "—";
+      setStatus("کادرهای پیام پاک شدند.");
+    });
+
+    document.getElementById("toggleKey").addEventListener("click", () => {
+      const show = secretKey.type === "password";
+      secretKey.type = show ? "text" : "password";
+      document.getElementById("toggleKey").textContent = show ? "مخفی‌کردن رمز عبور" : "نمایش رمز عبور";
+    });
+  </script>
+</body>
+
+</html>
