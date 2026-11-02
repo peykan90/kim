@@ -1,84 +1,156 @@
+
 <!DOCTYPE html>
 <html lang="fa" dir="rtl">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>سایت خاموش است</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SECURITY SHUTDOWN</title>
 
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+<style>
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
 
-        body {
-            min-height: 100vh;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            background: #101318;
-            font-family: Tahoma, sans-serif;
-            color: white;
-            text-align: center;
-        }
+body {
+    min-height: 100vh;
+    background:
+        radial-gradient(circle at center, #260000 0%, #090000 55%, #000 100%);
+    color: white;
+    font-family: Tahoma, sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+}
 
-        .container {
-            padding: 30px;
-            max-width: 900px;
-        }
+.container {
+    text-align: center;
+    padding: 25px;
+    position: relative;
+}
 
-        .icon {
-            font-size: 75px;
-            margin-bottom: 30px;
-        }
+.warning {
+    font-size: 65px;
+    margin-bottom: 30px;
+    animation: pulse 1.5s infinite;
+}
 
-        h1 {
-            color: #ff3333;
-            font-size: clamp(30px, 6vw, 65px);
-            line-height: 1.8;
-            text-shadow: 0 0 25px #ff000055;
-        }
+h1 {
+    font-size: clamp(25px, 5vw, 55px);
+    color: #ff0000;
+    text-shadow: 0 0 10px red, 0 0 30px #ff0000;
+    position: relative;
+    animation: glitch 1.2s infinite;
+}
 
-        p {
-            color: #999;
-            font-size: 15px;
-            margin-top: 25px;
-            direction: ltr;
-        }
+h1::before,
+h1::after {
+    content: attr(data-text);
+    position: absolute;
+    width: 100%;
+    right: 0;
+    overflow: hidden;
+}
 
-        .status {
-            display: inline-block;
-            margin-top: 30px;
-            padding: 10px 22px;
-            border: 1px solid #ff3333;
-            border-radius: 6px;
-            color: #ff5555;
-            letter-spacing: 2px;
-            font-size: 12px;
-        }
-    </style>
+h1::before {
+    color: #00ffff;
+    animation: glitchTop 1.5s infinite linear alternate-reverse;
+    z-index: -1;
+}
+
+h1::after {
+    color: #ff00ff;
+    animation: glitchBottom 1s infinite linear alternate-reverse;
+    z-index: -2;
+}
+
+.subtitle {
+    margin-top: 25px;
+    color: #aaa;
+    font-size: 14px;
+    letter-spacing: 3px;
+}
+
+.status {
+    margin-top: 35px;
+    color: #ff2222;
+    font-size: 13px;
+    animation: blink 1s infinite;
+}
+
+footer {
+    position: fixed;
+    bottom: 25px;
+    color: #700000;
+    font-size: 14px;
+    letter-spacing: 4px;
+    text-shadow: 0 0 10px red;
+}
+
+.scanline {
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    background: repeating-linear-gradient(
+        transparent 0px,
+        rgba(255, 0, 0, 0.025) 2px,
+        transparent 4px
+    );
+}
+
+@keyframes pulse {
+    0%, 100% { text-shadow: 0 0 10px red; }
+    50% { text-shadow: 0 0 35px red, 0 0 60px darkred; }
+}
+
+@keyframes blink {
+    50% { opacity: 0.2; }
+}
+
+@keyframes glitch {
+    0%, 90%, 100% { transform: translate(0); }
+    92% { transform: translate(-3px, 2px); }
+    94% { transform: translate(3px, -2px); }
+    96% { transform: translate(-2px, -1px); }
+}
+
+@keyframes glitchTop {
+    0% { clip-path: inset(0 0 80% 0); transform: translate(-3px); }
+    50% { clip-path: inset(30% 0 40% 0); transform: translate(3px); }
+    100% { clip-path: inset(70% 0 5% 0); transform: translate(-2px); }
+}
+
+@keyframes glitchBottom {
+    0% { clip-path: inset(70% 0 0 0); transform: translate(3px); }
+    50% { clip-path: inset(40% 0 30% 0); transform: translate(-3px); }
+    100% { clip-path: inset(5% 0 75% 0); transform: translate(2px); }
+}
+</style>
 </head>
 
 <body>
 
-    <div class="container">
+<div class="container">
+    <div class="warning">☠</div>
 
-        <div class="icon">🛡️</div>
+    <h1 data-text="سایت در حال حاضر به دلیل امنیت خاموش است">
+        سایت در حال حاضر به دلیل امنیت خاموش است
+    </h1>
 
-        <h1>
-            سایت در حال حاضر به دلیل امنیت خاموش است
-        </h1>
-
-        <p>
-            Website Temporarily Disabled for Security Reasons
-        </p>
-
-        <div class="status">
-            SECURITY SHUTDOWN mohammadrezapy 
-        </div>
-
+    <div class="subtitle">
+        SYSTEM ACCESS TEMPORARILY TERMINATED
     </div>
+
+    <div class="status">
+        ⚠ SECURITY SHUTDOWN ⚠
+    </div>
+</div>
+
+<div class="scanline"></div>
+
+<footer>mohammdrezapy</footer>
 
 </body>
 </html>
